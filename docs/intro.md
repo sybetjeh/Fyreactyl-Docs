@@ -9,5 +9,5 @@ Our [Github](https://github.com/FyreHub).
 
 ## Current Projects
 
-- [Fyreactyl-v1](?)
+- [Fyreactyl-v1](/docs/Fyreactyl/introduction.md)
 - Fyreactyl-v2 (Soon)
