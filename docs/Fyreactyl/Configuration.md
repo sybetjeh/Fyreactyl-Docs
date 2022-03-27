@@ -91,7 +91,10 @@ api: # The client area might break if there are no API codes, so I highly recomm
     revoke coupon: true
     change name: true
 ```
+
 This section is for managing the Freactyl API endpoints. Each option toggles whether the endpoint can be used publicly.
+
+### Locations
 
 ```yaml
 locations:
@@ -106,8 +109,11 @@ locations:
 
     renewal: false # Enables renewals for this feature. (Do not toggle after setting up this node on the client area. It might break things.)
 ```
+
 Here you can add your nodes. Make sure you add the nodes you need for location ID check if it matched the on pteropanel.
-```package``` checks if a user has a package on his account. If the user doesn't have the specified package in Freactyl, the user won't be able to create the server in that location.
+`package` checks if a user has a package on his account. If the user doesn't have the specified package in Freactyl, the user won't be able to create the server in that location.
+
+### Eggs
 
 ```yaml
 eggs: # These are the eggs servers can be created with.
@@ -134,5 +140,170 @@ eggs: # These are the eggs servers can be created with.
 ```
 
 This section is for the server configuration eggs in Pterodactyl. When creating a server through Freactyl, the package associated with this egg will be used to create it. You can set this to your liking, and/or remove the default egg to change it with another one.
-Add as many as you need but make sure you chnage the ```egg``` **ID**
+Add as many as you need but make sure you chnage the `egg` **ID**
 
+### Plans
+
+```yaml
+packages: # These are packages. They are organized categories on how much resources you would give to anyone with this package.
+  default: "default"
+  list:
+    default:
+      display: "The package name."
+      memory: 1024
+      disk: 1024
+      cpu: 100
+      servers: 1
+    pro:
+      id: "pro"
+      display: "Pro Package"
+      memory: 2048
+      disk: 2048
+      cpu: 200
+      servers: 2
+      price: 20000
+      paid: true
+```
+
+Here you can add different packages users can purchase plans with coins.
+
+### Store
+
+```yaml
+store: # This is the store options.
+  # 'enabled' is an option, which toggles if you can buy a single type of resource of.
+  # 'cost' is the amount of coins 'per' of a resource would cost.
+
+  memory:
+    enabled: true
+    cost: 10
+    per: 10
+
+  disk:
+    enabled: true
+    cost: 10
+    per: 10
+
+  cpu:
+    enabled: true
+    cost: 10
+    per: 10
+
+  servers:
+    enabled: true
+    cost: 10
+    per: 10
+
+  packages:
+    enabled: true
+```
+
+This is too easy to configure so you can do that.
+
+### AFK4Coins
+
+```yaml
+afk:
+  domain_lock:
+    - localhost:8000 # Change this to your actual domain.
+  redirect_on_attempt_to_steal_code: https://www.youtube.com/watch?v=dQw4w9WgXcQ
+  arc_id: ""
+  google_ads_pub_key: ""
+  everywhat: 60 # seconds
+  gaincoins: 1 # coins
+
+renewal:
+  renewal_time: 6.048e+8
+  deletion_time: 8.64e+7
+
+  renew_fee: 10 # coins
+```
+
+Here you will setup afk and server renewal.
+
+Change `localhost:8000` to you domain. Also if needed to change `renew_fee` and the rest of that.
+
+## Set Up Nginx
+
+This is the most **important** part so **concentrate**.
+Here you will install **nginx, certbot, and python3-certbot-nginx**
+
+```bash
+sudo apt install nginx
+sudo apt install certbot
+sudo apt install -y python3-certbot-nginx
+```
+
+Now to install letencrypt SSL for you domain
+
+```bash
+systemctl start nginx
+certbot certonly --nginx -d <FYREACTYL-DOMAIN>
+```
+
+When finished installing SSL it shoudl look something like this.
+Please if anything happens when installing SSL and does not looke like that conatct support on discord.
+
+```bash
+IMPORTANT NOTES:
+ - Congratulations! Your certificate and chain have been saved at:
+   /etc/letsencrypt/live/your.dashactyl.domain/fullchain.pem
+   Your key file has been saved at:
+   /etc/letsencrypt/live/your.dashactyl.domain/privkey.pem
+   Your cert will expire on date. To obtain a new or tweaked
+   version of this certificate in the future, simply run certbot
+   again. To non-interactively renew *all* of your certificates, run
+   "certbot renew"
+ - If you like Certbot, please consider supporting our work by:
+
+   Donating to ISRG / Let's Encrypt:   https://letsencrypt.org/donate
+   Donating to EFF:                    https://eff.org/donate-le
+```
+
+time to set the config file!
+
+```bash
+cd /etc/nginx/sites-available
+nano dashactyl.conf
+```
+
+Paste it in the config
+Change `<DOMAIN>` & `<PORT>` to your port and domain.
+
+```conf
+server {
+  listen 80;
+  server_name <DOMAIN>;
+  return 301 https://$server_name$request_uri;
+}
+server {
+  listen 443 ssl http2;
+
+  server_name <DOMAIN>;
+  ssl_certificate /etc/letsencrypt/live/<DOMAIN>/fullchain.pem;
+  ssl_certificate_key /etc/letsencrypt/live/<DOMAIN>/privkey.pem;
+  ssl_session_cache shared:SSL:10m;
+  ssl_protocols SSLv3 TLSv1 TLSv1.1 TLSv1.2;
+  ssl_ciphers  HIGH:!aNULL:!MD5;
+  ssl_prefer_server_ciphers on;
+
+  location / {
+    proxy_pass http://localhost:<PORT>/;
+    proxy_buffering off;
+    proxy_set_header X-Real-IP $remote_addr;
+  }
+
+  location /afkwspath {
+    proxy_http_version 1.1;
+    proxy_set_header Upgrade $http_upgrade;
+    proxy_set_header Connection "upgrade";
+    proxy_pass "http://localhost:<PORT>/afkwspath";
+  }
+}
+```
+Now to symlink the file.
+```bash
+sudo ln -s /etc/nginx/sites-available/dashactyl.conf /etc/nginx/sites-enabled/dashactyl.conf
+```
+
+Once you have edited, saved, and symlinked your configuration file, restart Nginx with ```systemctl restart nginx``` and restart Fyreactyl. You should see it running on that domain with SSL!
