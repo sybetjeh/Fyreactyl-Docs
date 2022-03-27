@@ -5,7 +5,7 @@ sidebar_position: 2
 # Installation
 
 :::warning READ BEFORE PROCEEDING!
-I have spent hours making this documentation to help yoy. You're supposed to at least have basic linux knowledge, and you're also supposed to understand what commands you're running.
+I have spent hours making this documentation to help you. You're supposed to at least have basic linux knowledge, and you're also supposed to understand what commands you're running.
 :::
 
 ## Supported Operating Systems
