@@ -60,7 +60,7 @@ sudo npm install
 After installing Dashactyl, create the `settings.yml` file using the `settings-template.yml` file and edit it for your dashboard, just incase for making mistakes you will copy the `settings.yml`
 
 ```bash
-cp settings-template.yml settings.yml
+cp settings-example.yml settings.yml
 nano settings.yml
 ```
 
@@ -89,7 +89,7 @@ cd Fyreactyl
 npm install
 ```
 
-After installing Fyreactyl, copy the `settings-template.yml` file, after use the `settings.yml` file and edit it for your accordingly dashboard.
+After installing Fyreactyl, copy the `settings-example.yml` file, after use the `settings.yml` file and edit it for your accordingly dashboard.
 
 ---
 
@@ -133,9 +133,9 @@ cd Fyreactyl
 sudo yum install
 ```
 
-After installing Dashactyl, create the `settings.yml` file using the `settings-template.yml` file and edit it for your dashboard, just incase for making mistakes you will copy the `settings.yml`
+After installing Dashactyl, create the `settings.yml` file using the `settings-example.yml` file and edit it for your dashboard, just incase for making mistakes you will copy the `settings.yml`
 
 ```bash
-cp settings-template.yml settings.yml
+cp settings-example.yml settings.yml
 nano settings.yml
 ```
