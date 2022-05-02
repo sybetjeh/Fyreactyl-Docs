@@ -9,8 +9,3 @@ sidebar_position: 1
 Fyreactyl uses Discord Authentication, and email and password, the discord login allows you not to have to store passwords. It is also easy to use and very user friendly.
 
 If you get any issues installing Fyreactyl, join the [Discord](https://discord.gg/3EfyVECKkg) and use one of the dedicated support channels to ask your question.
-
-Pictures of the client area:
-
-![sup](img/login.png)
-![sup](img/clientArea.png)

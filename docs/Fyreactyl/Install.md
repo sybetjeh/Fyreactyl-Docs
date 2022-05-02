@@ -34,14 +34,14 @@ sudo apt install git
 sudo apt install npm
 
 # installing NodeJS
-curl -fsSL https://deb.nodesource.com/setup_14.x | sudo bash -
+curl -fsSL https://deb.nodesource.com/setup_16.x | sudo bash -
 sudo apt install nodejs
 
 # installing mysql
 sudo apt install mysql-server
 ```
 
-Go ahead and chech if the right version has been installed.
+Go ahead and check if the right version has been installed.
 
 ```bash
 git --version

@@ -6,7 +6,7 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
-  title: 'Fyre Development Hub',
+  title: 'Fyre Software',
   tagline: 'Easiest docs to ever read 😀',
   url: 'https://fyredevhub.tk',
   baseUrl: '/',
@@ -29,8 +29,7 @@ const config = {
         blog: {
           showReadingTime: true,
           // Please change this to your repo.
-          editUrl:
-            'https://github.com/FyreHub/Fyreactyl',
+          editUrl: 'https://github.com/FyreHub/Fyreactyl',
         },
         theme: {
           customCss: require.resolve('./src/css/custom.css'),
@@ -43,12 +42,12 @@ const config = {
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
       colorMode: {
-       defaultMode: 'dark',
+        defaultMode: 'dark',
       },
       navbar: {
-        title: 'Fyre Hub',
+        title: 'Fyre Software',
         logo: {
-          alt: 'Fyre Hub',
+          alt: 'Fyre Software',
           src: 'img/logo.svg',
         },
         items: [
@@ -96,7 +95,7 @@ const config = {
             ],
           },
         ],
-        copyright: `Copyright © ${new Date().getFullYear()} Fyre Development Hub, Inc. Built with Docusaurus.`,
+        copyright: `Copyright © ${new Date().getFullYear()} Fyre Software, Built with Docusaurus.`,
       },
       prism: {
         theme: lightCodeTheme,
