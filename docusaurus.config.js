@@ -8,12 +8,12 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 const config = {
   title: 'Fyre Software',
   tagline: 'Easiest docs to ever read 😀',
-  url: 'https://fyredevhub.tk',
+  url: 'https://docs.fyresoftware.com',
   baseUrl: '/',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
   favicon: 'img/favicon.ico',
-  organizationName: 'Fyre Development Hub', // Usually your GitHub org/user name.
+  organizationName: 'Fyre Software', // Usually your GitHub org/user name.
   projectName: 'Fyreactyl', // Usually your repo name.
 
   presets: [
@@ -28,7 +28,7 @@ const config = {
         },
         blog: {
           showReadingTime: true,
-          // Please change this to your repo.
+          blogSidebarCount: 'ALL',
           editUrl: 'https://github.com/FyreHub/Fyreactyl',
         },
         theme: {
@@ -55,13 +55,14 @@ const config = {
             type: 'doc',
             docId: 'intro',
             position: 'left',
-            label: 'Tutorial',
+            label: 'Docs',
           },
           {
-            href: 'https://github.com/FyreHub/Fyreactyl',
+            href: 'https://github.com/FyreHub',
             label: 'GitHub',
             position: 'right',
           },
+          { to: 'blog', label: 'Blog', position: 'left' },
         ],
       },
       footer: {
@@ -90,7 +91,7 @@ const config = {
             items: [
               {
                 label: 'GitHub',
-                href: 'https://github.com/FyreHub/Fyreactyl',
+                href: 'https://github.com/FyreHub',
               },
             ],
           },

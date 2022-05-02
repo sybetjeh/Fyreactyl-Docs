@@ -2,7 +2,7 @@
 sidebar_position: 1
 ---
 
-# Fyre Development
+# Fyre Software
 
 Welcome to the Fyre Software Documentation. This is where documentation for our products.  
 Our [Github](https://github.com/FyreHub).
