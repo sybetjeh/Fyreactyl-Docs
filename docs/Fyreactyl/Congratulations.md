@@ -32,5 +32,5 @@ Have fun!
 
 ## Links
 
-- [Join the Discord](https://discord.gg/nDxrPWh8pk)
+- [Join the Discord](https://discord.gg/sXWE8gJrt3)
 - [Visit our GitHub](https://github.com/FyreHub)
