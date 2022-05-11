@@ -4,77 +4,82 @@ sidebar_position: 3
 
 # Configuration
 
-This page goes over the `settings.yml` configuration and setting up the Nginx webserver for Fyreactyl.
+Fyreactyl needs configuration before you can start it up, therefore you can use this page
 
 ## Configuring your Settings
 
-Because the `settings.yml` file is quit big , this page will break down and explain each individual section.
+The `settings.yml` page can be quite confusing, but below is a breakdown of how to configure it
 
 ```yaml
 website:
   port: 8000
-  secret: "extremely secret very secret MAXIMUM secret LMAO."
+  secret: 'keep this a secret!'
   secure: false # This option requires https.
-  url: "http://localhost:8000"
+  url: 'http://localhost:8000'
 ```
 
-The start of the settings file; The `port` is where Fyreactyl will be running. Your Discord credentials can be found [at the developer portal](https://discord.com/developers/applications) with the application you are using for Fyreactyl. Make sure ypu change the `localhost:8000` to your domain and keep http.
+This is the less important stuff but the url and the port are very important for later on
 
 ### Discord Auth
 
 ```yaml
 discord:
-  id: ""
-  secret: ""
-  signup_callback: "http://localhost:8000/accounts/discord/signup/callback"
-  login_callback: "http://localhost:8000/accounts/discord/login/callback"
-  link_callback: "http://localhost:8000/accounts/discord/link/callback"
+  id: ''
+  secret: ''
+  signup_callback: 'http://localhost:8000/accounts/discord/signup/callback'
+  login_callback: 'http://localhost:8000/accounts/discord/login/callback'
+  link_callback: 'http://localhost:8000/accounts/discord/link/callback'
   prompt: false
 
-  token: ""
-  guild: "000000000000000000" # Add your server ID you want to force users to join on login here.
+  token: ''
+  guild: '000000000000000000' # Add your server ID you want to force users to join on login here.
 ```
 
-your Discord credentials can be found at the developer [portal](https://discord.com/developers/applications) with the application you are using for Fyreactyl. When setting up the `callbackpath`, make sure it is also whitelisted in the portal: **Your Application > Oauth2 > Redirects**. The `token` is the token of your bot application for Fyreactyl. This must be kept secret **at all times** as it can be easily abused. The `guild` is your server ID if applicable.
+your Discord credentials can be found at the developer [portal](https://discord.com/developers/applications) with the application you are using for Fyreactyl. When setting up the `callback`, make sure it is also whitelisted in the portal: **Your Application > Oauth2 > General > Redirects**. The `token` is very important for Fyreactyl as this verifies the user is banned.  
+**DO NOT LEAK THIS TOKEN**
 
-Make sure you change `http://localhost:8000` it to `https://youDomain.tld`. Change `promt: false` to `promt: false` if you will be using discord auth as well as email and password.
+**Make sure you don't forget to replace `http://localhost:8000` with your own domain!**
 
 ### Pterodactyl config
 
 ```yaml
 pterodactyl:
-  domain: "" # The panel domain
-  key: "" # Make sure to higher/remove rate limits for application API keys, so the dashboard doesn't get rate limited.
+  domain: '' # The panel domain
+  key: '' # Make sure to higher/remove rate limits for application API keys, so the dashboard doesn't get rate limited.
   generate_password_on_sign_up: true
 ```
 
-In the `domain` part add you panel domain with https e.g. `https://panel.my.domain`.
-Go ahead and go the the pteropanel settings and go to api and create an api key with **read & write** and paste it in to `key`
+Fyreactyl currently only works with pterodactyl, make sure you have one up and running.
+
+The `domain` is your panel domain you linked to, can either be an ip or domain (domain is more secure).  
+The `key` your key can be found in the administrator section of the panel. Go to api and create the admin key. (Give it all the permissions because fyreactyl needs those permissions)
 
 ### Database
+
+The database, where all the data is stored, below you will find a guide on how to setup your database.
 
 ```bash
 mysql -u root -p
 
 # After you've got that setup, let's go into the next step. Remember to change 'YourPasswordHere' with a secure password.
-CREATE USER 'dashboard'@'127.0.0.1' IDENTIFIED BY 'YourPasswordHere';
-CREATE DATABASE dashactyl;
-GRANT ALL PRIVILEGES ON dashactyl.* TO 'dashboard'@'127.0.0.1' WITH GRANT OPTION;
+CREATE USER 'fyreactyl'@'127.0.0.1' IDENTIFIED BY 'YourPasswordHere';
+CREATE DATABASE dashboard;
+GRANT ALL PRIVILEGES ON dashboard.* TO 'fyreactyl'@'127.0.0.1' WITH GRANT OPTION;
 quit;
 ```
 
-Now
+In the configuration you find this config, if you followed the database creation above you can type over the pre-filled config
 
 ```yaml
 database:
-  host: "Enter your database IP here."
-  port: "Enter your database port here."
-  user: "Enter your database user here."
-  password: "Enter your database password here."
-  database: "dashactyl"
+  host: 'Enter your database IP here.'
+  port: '3306'
+  user: 'fyreactyl'
+  password: 'Enter your database password here.'
+  database: 'dashboard'
 ```
 
-Go ahead and fill in the detail. normally the **port** is 3306 if you make it on your vps. Make sure you check what port your provider tells you to use.
+Now, fill in the pre-filled config, the rest you can do yourself. The password is the password from the user. If your hosting the database on the machine your hosting fyreactyl on you can enter the following ip: `127.0.0.1`
 
 ### API EndPoints
 
@@ -92,14 +97,14 @@ api: # The client area might break if there are no API codes, so I highly recomm
     change name: true
 ```
 
-This section is for managing the Freactyl API endpoints. Each option toggles whether the endpoint can be used publicly.
+This section is how the api is configured. Watch out carefully and make sure to configure it correctly. The password is the name of the variable called `apicodepassword` if Is would change the name of the variable to `password` this would be the password of the api.
 
 ### Locations
 
 ```yaml
 locations:
-  "1": # Location ID.
-    name: "Africa" # Location display name.
+  '1': # Location ID.
+    name: 'US' # Location display name.
     enabled: true # Enable or disable server creation on this location.
     package: null # Required package to make a server on this location.
 
@@ -110,15 +115,14 @@ locations:
     renewal: false # Enables renewals for this feature. (Do not toggle after setting up this node on the client area. It might break things.)
 ```
 
-Here you can add your nodes. Make sure you add the nodes you need for location ID check if it matched the on pteropanel.
-`package` checks if a user has a package on his account. If the user doesn't have the specified package in Freactyl, the user won't be able to create the server in that location.
+Here, you can add nodes. Fyreactyl will automatically detect nodes on the location, you can also fill in a package required for the nodes.
 
 ### Eggs
 
 ```yaml
 eggs: # These are the eggs servers can be created with.
   paper:
-    display: "Paper"
+    display: 'Paper'
     minimum:
       memory: 100
       disk: 100
@@ -132,31 +136,30 @@ eggs: # These are the eggs servers can be created with.
       docker_image: quay.io/pterodactyl/core:java
       startup: java -Xms128M -Xmx{{SERVER_MEMORY}}M -Dterminal.jline=false -Dterminal.ansi=true -jar {{SERVER_JARFILE}}
       environment:
-        SERVER_JARFILE: "server.jar"
-        BUILD_NUMBER: "latest"
+        SERVER_JARFILE: 'server.jar'
+        BUILD_NUMBER: 'latest'
       feature_limits:
         databases: 1
         backups: 1
 ```
 
-This section is for the server configuration eggs in Pterodactyl. When creating a server through Freactyl, the package associated with this egg will be used to create it. You can set this to your liking, and/or remove the default egg to change it with another one.
-Add as many as you need but make sure you chnage the `egg` **ID**
+Above you have an example of a java egg, I will try to make a page on how to add a python, nodejs egg soon.
 
 ### Plans
 
 ```yaml
 packages: # These are packages. They are organized categories on how much resources you would give to anyone with this package.
-  default: "default"
+  default: 'default'
   list:
     default:
-      display: "The package name."
+      display: 'The package name.'
       memory: 1024
       disk: 1024
       cpu: 100
       servers: 1
     pro:
-      id: "pro"
-      display: "Pro Package"
+      id: 'pro'
+      display: 'Pro Package'
       memory: 2048
       disk: 2048
       cpu: 200
@@ -165,7 +168,7 @@ packages: # These are packages. They are organized categories on how much resour
       paid: true
 ```
 
-Here you can add different packages users can purchase plans with coins.
+The packages, the interesting part. The `default` value is the name of the package you want as default. This will be assigned when the user creates an account. You can also create paid packages using coins.
 
 ### Store
 
@@ -198,7 +201,7 @@ store: # This is the store options.
     enabled: true
 ```
 
-This is too easy to configure so you can do that.
+Simple configuration, not much to explain here
 
 ### AFK4Coins
 
@@ -207,49 +210,45 @@ afk:
   domain_lock:
     - localhost:8000 # Change this to your actual domain.
   redirect_on_attempt_to_steal_code: https://www.youtube.com/watch?v=dQw4w9WgXcQ
-  arc_id: ""
-  google_ads_pub_key: ""
+  arc_id: ''
+  google_ads_pub_key: ''
   everywhat: 60 # seconds
   gaincoins: 1 # coins
 
 renewal:
   renewal_time: 6.048e+8
-  deletion_time: 8.64e+7
+  deletion_time: 100
 
   renew_fee: 10 # coins
 ```
 
-Here you will setup afk and server renewal.
-
-Change `localhost:8000` to you domain. Also if needed to change `renew_fee` and the rest of that.
+Afk, the hardest part of all the configuration.
+I do not recommend arc, but you can use it. Use google ads instead. With google ads just enter the id. If i would had the following code `ca-pub-9483705876135332` the id would be `9483705876135332`.
 
 ## Set Up Nginx
 
-This is the most **important** part so **concentrate**.
+This is the most **important** part.
 Here you will install **nginx, certbot, and python3-certbot-nginx**
 
 ```bash
-sudo apt install nginx
-sudo apt install certbot
-sudo apt install -y python3-certbot-nginx
+sudo apt install nginx python3-certbot-nginx certbot
 ```
 
-Now to install letencrypt SSL for you domain
+Now to install "let's encrypt" SSL for you domain
 
 ```bash
-systemctl start nginx
-certbot certonly --nginx -d <FYREACTYL-DOMAIN>
+systemctl stop nginx
+certbot certonly --standalone -d <FYREACTYL-DOMAIN>
 ```
 
-When finished installing SSL it shoudl look something like this.
-Please if anything happens when installing SSL and does not looke like that conatct support on discord.
+When finished creating the ssl, your confirmation message should look like below. If not please contact us on our discord server.
 
 ```bash
 IMPORTANT NOTES:
  - Congratulations! Your certificate and chain have been saved at:
-   /etc/letsencrypt/live/your.dashactyl.domain/fullchain.pem
+   /etc/letsencrypt/live/your.domain/fullchain.pem
    Your key file has been saved at:
-   /etc/letsencrypt/live/your.dashactyl.domain/privkey.pem
+   /etc/letsencrypt/live/your.domain/privkey.pem
    Your cert will expire on date. To obtain a new or tweaked
    version of this certificate in the future, simply run certbot
    again. To non-interactively renew *all* of your certificates, run
@@ -264,7 +263,7 @@ time to set the config file!
 
 ```bash
 cd /etc/nginx/sites-available
-nano dashactyl.conf
+nano fyreactyl.conf
 ```
 
 Paste it in the config
@@ -296,14 +295,17 @@ server {
   location /afkwspath {
     proxy_http_version 1.1;
     proxy_set_header Upgrade $http_upgrade;
-    proxy_set_header Connection "upgrade";
+    proxy_set_header Connection "Upgrade";
+    proxy_set_header Host $host;
     proxy_pass "http://localhost:<PORT>/afkwspath";
   }
 }
 ```
-Now to symlink the file.
+
+Now put this file in the correct directory.
+
 ```bash
-sudo ln -s /etc/nginx/sites-available/dashactyl.conf /etc/nginx/sites-enabled/dashactyl.conf
+sudo ln -s /etc/nginx/sites-available/fyreactyl.conf /etc/nginx/sites-enabled/fyreactyl.conf
 ```
 
-Once you have edited, saved, and symlinked your configuration file, restart Nginx with ```systemctl restart nginx``` and restart Fyreactyl. You should see it running on that domain with SSL!
+Once you are done, you can restart nginx with `sudo systemctl restart nginx`. Don't forget to restart fyreactyl.

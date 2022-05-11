@@ -5,7 +5,7 @@ sidebar_position: 2
 # Installation
 
 :::warning READ BEFORE PROCEEDING!
-I have spent hours making this documentation to help you. You're supposed to at least have basic linux knowledge, and you're also supposed to understand what commands you're running.
+When creating a host, I trust you have enough expierence with linux, ubuntu, debian, ...
 :::
 
 ## Supported Operating Systems
@@ -57,7 +57,7 @@ cd Fyreactyl
 sudo npm install
 ```
 
-After installing Dashactyl, create the `settings.yml` file using the `settings-template.yml` file and edit it for your dashboard, just incase for making mistakes you will copy the `settings.yml`
+When done installing, you should see the file: `settings-example.yml`. This needs to change to settings.yml, this can easily be done using the commands below.
 
 ```bash
 cp settings-example.yml settings.yml
@@ -89,9 +89,13 @@ cd Fyreactyl
 npm install
 ```
 
-After installing Fyreactyl, copy the `settings-example.yml` file, after use the `settings.yml` file and edit it for your accordingly dashboard.
+It is recommended you use the interface but you can also use the commandline using the following command:
 
----
+```bash
+copy settings-example.yml settings.yml
+```
+
+When done copying the settings file you can either use notepad or [visual studio code](https://code.visualstudio.com/) to fill in settings.yml.
 
 ## [CentOS](#centos)
 
@@ -133,7 +137,7 @@ cd Fyreactyl
 sudo yum install
 ```
 
-After installing Dashactyl, create the `settings.yml` file using the `settings-example.yml` file and edit it for your dashboard, just incase for making mistakes you will copy the `settings.yml`
+When done installing, you should see the file: `settings-example.yml`. This needs to change to settings.yml, this can easily be done using the commands below.
 
 ```bash
 cp settings-example.yml settings.yml

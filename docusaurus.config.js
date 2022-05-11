@@ -7,7 +7,8 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 /** @type {import('@docusaurus/types').Config} */
 const config = {
   title: 'Fyre Software',
-  tagline: 'Easiest docs to ever read 😀',
+  tagline:
+    'We aim to provide software to the non retarded side of the internet.',
   url: 'https://docs.fyresoftware.com',
   baseUrl: '/',
   onBrokenLinks: 'throw',
