@@ -16,7 +16,7 @@ const config = {
   favicon: 'img/favicon.ico',
   organizationName: 'sybetjeh', // Usually your GitHub org/user name.
   projectName: 'Fyreactyl-Docs', // Usually your repo name.
-  deploymentBranch: 'master'
+  deploymentBranch: 'aster'
 
   presets: [
     [
