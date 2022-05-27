@@ -9,8 +9,8 @@ const config = {
   title: 'Fyre Software',
   tagline:
     'We aim to provide software to the non retarded side of the internet.',
-  url: 'https://docs.fyresoftware.com',
-  baseUrl: '/',
+  url: 'https://sybetjeh.github.io',
+  baseUrl: '/Fyreactyl-Docs/',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
   favicon: 'img/favicon.ico',
