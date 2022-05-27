@@ -10,13 +10,12 @@ const config = {
   tagline:
     'We aim to provide software to the non retarded side of the internet.',
   url: 'https://sybetjeh.github.io',
-  baseUrl: '/Fyreactyl-Docs/',
+  baseUrl: '/',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
   favicon: 'img/favicon.ico',
   organizationName: 'sybetjeh', // Usually your GitHub org/user name.
   projectName: 'Fyreactyl-Docs', // Usually your repo name.
-  deploymentBranch: 'master'
 
   presets: [
     [
